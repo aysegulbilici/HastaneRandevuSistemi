@@ -1,0 +1,67 @@
+﻿@model object
+
+@{
+    ViewData["Title"] = "KullaniciGirisi";
+}
+
+<style>
+    body {
+        background-color: rgb(238, 238, 228);
+    }
+
+    .container {
+        margin-top: 50px;
+    }
+
+    .card {
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-header {
+        background-color: #1F7373;
+        color: white;
+        text-align: center;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .btn-giris {
+        background-color: #1F7373;
+        color: white;
+    }
+</style>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Kullanıcı Girişi</h2>
+                </div>
+                <div class="card-body">
+                    <form asp-controller="Hesap" asp-action="GirisYap" method="post">
+                        <div class="form-group">
+                            <label for="tc">TC Kimlik Numarası</label>
+                            <input type="text" class="form-control" id="tc" name="tc" placeholder="TC Kimlik Numaranız" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="sifre">Şifre</label>
+                            <input type="password" class="form-control" id="sifre" name="sifre" placeholder="Şifreniz" required>
+                        </div>
+                        <button type="submit" class="btn btn-giris btn-block">Giriş Yap</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap ve jQuery kütüphaneleri -->
+<script src="~/lib/jquery/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

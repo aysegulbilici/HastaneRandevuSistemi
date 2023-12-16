@@ -1,0 +1,79 @@
+﻿@model object
+
+@{
+    ViewData["Title"] = "AdminPaneli";
+}
+
+<style>
+    body {
+        background-color: #2C3E50;
+        color: white;
+    }
+
+    .container {
+        margin-top: 50px;
+    }
+
+    .card {
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-header {
+        background-color: #2980B9;
+        color: white;
+        text-align: center;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-control {
+        background-color: #34495E;
+        color: white;
+        border: none;
+        border-radius: 5px;
+    }
+
+        .form-control::placeholder {
+            color: #BDC3C7;
+        }
+
+    .btn-giris {
+        background-color: #3498DB;
+        color: white;
+    }
+</style>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Admin Girişi</h2>
+                </div>
+                <div class="card-body">
+                    <form asp-controller="Hesap" asp-action="AdminGiris" method="post">
+                        <div class="form-group">
+                            <label for="kullaniciAdi">Kullanıcı Adı (E-posta)</label>
+                            <input type="email" class="form-control" id="kullaniciAdi" name="kullaniciAdi" placeholder="OgrenciNuramarasi@sakarya.edu.tr" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="sifre">Şifre</label>
+                            <input type="password" class="form-control" id="sifre" name="sifre" placeholder="sau" required>
+                        </div>
+                        <button type="submit" class="btn btn-giris btn-block">Giriş Yap</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap ve jQuery kütüphaneleri -->
+<script src="~/lib/jquery/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
