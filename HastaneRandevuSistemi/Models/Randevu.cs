@@ -7,21 +7,28 @@ public class Randevu
 {
     [Key]
     [Required]
-    [Column("RandevuId")]
-    public int RandevuId { get; set; }
-    [Column("KullaniciId")]
-    public int KullaniciId { get; set; }
-    [Column("DoktorId")]
-    public int DoktorId { get; set; }
-    [Timestamp]
-    [Column("RandevuTarihi")]
-    public DateTime RandevuTarihi { get; set; }
+    [Column("id")]
+    public int randevuId { get; set; }
 
-    // Bir randevunun sahibi (kullanıcı)
-    [ForeignKey("KullaniciId")]
+    [Required]
+    [Column("kullanici_id")]
+    public int kullaniciId { get; set; }
+
+    [ForeignKey("kullanici_id")]
     public Kullanici Kullanici { get; set; }
 
-    // Bir randevunun atanmış olduğu doktor
-    [ForeignKey("DoktorId")]
+    
+
+    [Required]
+    [Column("doktor_id")]
+    public int doktorId { get; set; }
+
+
+    [ForeignKey("doktor_id")]
     public Doktor Doktor { get; set; }
+
+
+    [Required]
+    [Column("tarih")]
+    public DateTime tarih { get; set; }
 }

@@ -7,22 +7,28 @@ public class Kullanici
 {
     [Key]
     [Required]
-    [Column("KullaniciId")]
+    [Column("id")]
     public int KullaniciId { get; set; }
-    [Column("KullaniciAdi")]
-    public string KullaniciAdi { get; set; }
-    [Column("Sifre")]
+    [MaxLength(20)]
+    [Column("ad")]
+    [Required]
+    public string KullaniciAd { get; set; }
+    [Column("soyad")]
+    [MaxLength(20)]
+    [Required]
+    public string KullaniciSoyad { get; set; }
+    [Column("sifre")]
+    [MaxLength(20)]
+    [Required]   
     public string Sifre { get; set; }
-    [Column("Eposta")]
-    public string Eposta { get; set; }
-    [MaxLength(40)]
-    [Column("AdSoyad")]
-    public string AdSoyad { get; set; }
-    [Column("Rol")]
-    public string Rol { get; set; }
+    [Column("tc")]
+    [MaxLength(11)]
+    [Required]
+    public string Tc { get; set; }
+    [Column("rol_id")]
+    [Required]
+    public int rolId { get; set; }
 
-    // Bir kullanıcının aldığı randevular
-    [ForeignKey("RandevuId")]
-    public List<Randevu> Randevular { get; set; }
+    
 }
 
