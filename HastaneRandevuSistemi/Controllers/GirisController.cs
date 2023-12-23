@@ -7,15 +7,10 @@ namespace HastaneRandevuSistemi.Controllers
     {
         public IActionResult Giris()
         {
-            HastaneRandevuSistemiDbContext s= HastaneRandevuSistemiDbContext.getInstance();
-            Rol rol = new Rol();
-            rol.rolId = 5;
-            rol.rolAd = "dumb1";
-            s.Add(rol);
-            s.SaveChanges();
+            HastaneRandevuSistemiDbContext context= HastaneRandevuSistemiDbContext.getInstance();
+            var res = context.RolT.ToList();
 
-
-            return View();
+            return View(res);
         }
     }
 }

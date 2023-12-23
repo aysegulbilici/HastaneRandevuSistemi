@@ -1,1 +1,31 @@
-﻿
+﻿@model List<Rol>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rol Listesi</title>
+</head>
+<body>
+    <h1>Rol Listesi</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Adı</th>
+                <!-- Diğer sütunlar... -->
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var rol in Model)
+            {
+                <tr>
+                    <td>@rol.rolId</td>
+                    <td>@rol.rolAd</td>
+                    <!-- Diğer sütunlar... -->
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>

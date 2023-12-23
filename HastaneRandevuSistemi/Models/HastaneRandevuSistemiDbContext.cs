@@ -14,7 +14,7 @@ namespace HastaneRandevuSistemi.Models
         // DbSet, veritabanındaki tablolara karşılık gelen varlık sınıflarını temsil eder.
         public DbSet<Randevu> RandevuT { get; set; }
         public DbSet<Admin> AdminT { get; set; }
-        public DbSet<Randevu> BolumT { get; set; }
+        public DbSet<Bolum> BolumT { get; set; }
         public DbSet<Doktor> DoktorT { get; set; }
         public DbSet<Hasta> HastaT { get; set; }
         public DbSet<Kullanici> KullaniciT { get; set; }
