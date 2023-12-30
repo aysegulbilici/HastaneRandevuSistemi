@@ -7,10 +7,8 @@ namespace HastaneRandevuSistemi.Controllers
     {
         public IActionResult Giris()
         {
-            HastaneRandevuSistemiDbContext context= HastaneRandevuSistemiDbContext.getInstance();
-            var res = context.RolT.ToList();
-
-            return View(res);
+            
+            return View();
         }
     }
 }

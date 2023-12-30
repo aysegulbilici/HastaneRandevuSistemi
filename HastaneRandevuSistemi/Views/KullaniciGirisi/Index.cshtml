@@ -1,0 +1,31 @@
+﻿@model HastaneRandevuSistemi.Models.Kullanici
+
+@{
+    ViewBag.Title = "Kullanıcı Girişi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <h2>Kullanıcı Girişi</h2>
+
+    @using (Html.BeginForm("Giris", "KullaniciGirisi", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            <label asp-for="Tc" class="control-label">TC:</label>
+            <input asp-for="Tc" class="form-control" pattern="\d{11}" title="TC kimlik numarası 11 haneli olmalıdır." required />
+            <span asp-validation-for="Tc" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Sifre" class="control-label">Şifre:</label>
+            <input asp-for="Sifre" type="password" class="form-control" required />
+            <span asp-validation-for="Sifre" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Giriş Yap</button>
+        </div>
+    }
+</div>

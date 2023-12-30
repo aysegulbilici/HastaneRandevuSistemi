@@ -8,7 +8,7 @@ public class DoktorM
     public string Soyad { get; set; }
     public string Sifre { get; set; }
     public string Tc { get; set; }
-    public int RolId { get; set; }
+    public int RolId { get; set; }               
     public int BolumId { get; set; }
 }
 

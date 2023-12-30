@@ -1,0 +1,58 @@
+﻿@model HastaneRandevuSistemi.Models.Kullanici
+
+@{
+    ViewBag.Title = "Üye Ol";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <h2>Üye Ol</h2>
+
+    <form asp-controller="UyeOl" asp-action="UyeOl" method="post">
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            <label asp-for="KullaniciAd" class="control-label">Ad:</label>
+            <input asp-for="KullaniciAd" class="form-control" required />
+            <span asp-validation-for="KullaniciAd" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="KullaniciSoyad" class="control-label">Soyad:</label>
+            <input asp-for="KullaniciSoyad" class="form-control" required />
+            <span asp-validation-for="KullaniciSoyad" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Tc" class="control-label">TC:</label>
+            <input asp-for="Tc" class="form-control" pattern="\d{11}" title="TC kimlik numarası 11 haneli olmalıdır." required />
+            <span asp-validation-for="Tc" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Sifre" class="control-label">Şifre:</label>
+            <input asp-for="Sifre" type="password" class="form-control" required />
+            <span asp-validation-for="Sifre" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Kaydol</button>
+        </div>
+    </form>
+</div>
+<script>
+    function showSuccessPopup() {
+        Swal.fire({
+            icon: 'success',
+            title: 'Başarılı!',
+            text: 'Üye olma işlemi başarıyla tamamlandı.',
+            showConfirmButton: false,
+            timer: 3000,  // Mesajın ekranda kalma süresi (milisaniye cinsinden)
+            onClose: function () {
+                window.location.href = '/Giris';  // Yönlendirilecek URL'yi belirtin
+            }
+        });
+    }
+</script>
+
+

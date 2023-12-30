@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using HastaneRandevuSistemi.Utils;
+using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,14 +13,15 @@ namespace HastaneRandevuSistemi.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            return new string[] { "value1", "value2" };
+            Linq_learning linq_Learning = new Linq_learning();
+            return new string[] { "value1", Linq_learning.result() };
         }
 
         // GET api/<ApiDenemeController>/5
         [HttpGet("{id}")]
         public string Get(int id)
         {
-            return "value";
+            return id.ToString();
         }
 
         // POST api/<ApiDenemeController>

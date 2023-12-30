@@ -1,31 +1,15 @@
-﻿@model List<Rol>
+﻿@{
+    ViewBag.Title = "Magic Health - Randevu Sistemi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Rol Listesi</title>
-</head>
-<body>
-    <h1>Rol Listesi</h1>
+<div class="jumbotron text-center mt-5">
+    <h1 class="display-4">Magic Health</h1>
+    <p class="lead">Hastane Randevu Sistemi</p>
+</div>
 
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Adı</th>
-                <!-- Diğer sütunlar... -->
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var rol in Model)
-            {
-                <tr>
-                    <td>@rol.rolId</td>
-                    <td>@rol.rolAd</td>
-                    <!-- Diğer sütunlar... -->
-                </tr>
-            }
-        </tbody>
-    </table>
-</body>
-</html>
+<div class="text-center">
+    <a href="@Url.Action("Index", "UyeOl")" class="btn btn-primary btn-lg mr-3">Üye Ol</a>
+    <a href="@Url.Action("Index", "KullaniciGirisi")" class="btn btn-success btn-lg mr-3">Kullanıcı Girişi</a>
+    <a href="@Url.Action("Index", "AdminPaneli")" class="btn btn-danger btn-lg">Admin Paneli</a>
+</div>
