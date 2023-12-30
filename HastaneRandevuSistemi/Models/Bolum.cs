@@ -12,4 +12,10 @@ public class Bolum
     [Column("ad")]
     [Required]
     public string BolumAdi { get; set; }
+
+
+    public string toString()
+    {
+        return $"id: {BolumId}, bolum: {BolumAdi}";
+    }
 }

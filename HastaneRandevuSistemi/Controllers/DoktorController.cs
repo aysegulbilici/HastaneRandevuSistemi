@@ -41,7 +41,7 @@ namespace HastaneRandevuSistemi.Controllers
         [HttpGet("{id}")]
         public Doktor Get(int id)
         {
-            var res = context.DoktorT.FirstOrDefault(x => x.doktorId == id);
+            var res = context.DoktorT.FirstOrDefault(x => x.id == id);
 
 
             return res;
@@ -63,9 +63,9 @@ namespace HastaneRandevuSistemi.Controllers
             context.KullaniciT.Add(kullanici);
 
             Doktor doktor = new Doktor();
-            doktor.doktorId = kullanici.KullaniciId;
-            doktor.bolumId = doktorM.BolumId;
-            doktor.randevuListesiMetin = "";
+            doktor.id = kullanici.KullaniciId;
+            doktor.bolum_id = doktorM.BolumId;
+            doktor.randevu_id = "";
 
             context.DoktorT.Add(doktor);
             
@@ -76,13 +76,13 @@ namespace HastaneRandevuSistemi.Controllers
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody] Doktor value)
         {
-            var willPut = HastaneRandevuSistemiDbContext.getInstance().DoktorT.FirstOrDefault(x => x.doktorId == id);
+            var willPut = HastaneRandevuSistemiDbContext.getInstance().DoktorT.FirstOrDefault(x => x.id == id);
             if (willPut == null)
                 return NotFound();
-            willPut.bolumId = value.bolumId;
+            willPut.bolum_id = value.bolum_id;
             willPut.Bolum = value.Bolum;
-            willPut.doktorId = value.doktorId;
-            willPut.randevuListesiMetin = value.randevuListesiMetin;
+            willPut.id = value.id;
+            willPut.randevu_id = value.randevu_id;
             HastaneRandevuSistemiDbContext.getInstance().Update(willPut);
             HastaneRandevuSistemiDbContext.getInstance().SaveChanges();
             return Ok();
@@ -94,7 +94,7 @@ namespace HastaneRandevuSistemi.Controllers
 
         {
 
-            var willDelete = HastaneRandevuSistemiDbContext.getInstance().DoktorT.Where(x => x.doktorId == id).First();
+            var willDelete = HastaneRandevuSistemiDbContext.getInstance().DoktorT.Where(x => x.id == id).First();
             if (willDelete == null)
                 return NotFound();
             HastaneRandevuSistemiDbContext.getInstance().DoktorT.Remove(willDelete);

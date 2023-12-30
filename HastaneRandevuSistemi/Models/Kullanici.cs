@@ -34,5 +34,10 @@ namespace HastaneRandevuSistemi.Models
         [Required(ErrorMessage = "Rol ID zorunlu bir alan.")]
         [Column("rol_id")]
         public int rolId { get; set; }
+
+        public string toString()
+        {
+            return $"ad: {KullaniciAd} soyad: {KullaniciSoyad}";
+        }
     }
 }

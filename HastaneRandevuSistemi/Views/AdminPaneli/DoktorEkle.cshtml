@@ -1,0 +1,56 @@
+﻿@{
+    HastaneRandevuSistemiDbContext _ctx = HastaneRandevuSistemiDbContext.getInstance();
+    var bolumler = _ctx.BolumT.ToList();
+}
+
+@model HastaneRandevuSistemi.Models.DoktorDbo
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Doktor Ekle</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Doktor Ekle</h2>
+
+        <form method="post" asp-controller="AdminPaneli" asp-action="DoktorEkle">
+            <div class="form-group">
+                <label asp-for="KullaniciAd">Doktor Adı:</label>
+                <input asp-for="KullaniciAd" class="form-control" required>
+                <span asp-validation-for="KullaniciAd" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="KullaniciSoyad">Doktor Soyadı:</label>
+                <input asp-for="KullaniciSoyad" class="form-control" required>
+                <span asp-validation-for="KullaniciSoyad" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Tc">Doktor TC:</label>
+                <input asp-for="Tc" class="form-control" required>
+                <span asp-validation-for="Tc" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Sifre">Şifre:</label>
+                <input asp-for="Sifre" type="password"  class="form-control" required>
+                <span asp-validation-for="Sifre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="bolumId">Bölüm:</label>
+                <select asp-for="bolumId" class="form-control" required>
+                    <option value="">Seçiniz</option>
+                    @foreach (var bolum in bolumler)
+                    {
+                        <option value="@bolum.BolumId">@bolum.BolumAdi</option>
+                    }
+                </select>
+                <span asp-validation-for="bolumId" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-success">Doktor Ekle</button>
+        </form>
+    </div>
+
+    <!-- No need for Scripts section in this standalone page -->
+</body>
+</html>

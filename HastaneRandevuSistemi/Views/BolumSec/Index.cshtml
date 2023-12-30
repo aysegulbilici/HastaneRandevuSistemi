@@ -1,6 +1,28 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model List<Bolum>
+
 @{
+    ViewData["Title"] = "Tercih Sayfasi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<P>BOLUM SECME SAYAFSI</P>
+
+<div class="container mt-5">
+    <h2>Tercih Sayfasi</h2>
+
+    <div class="row">
+        @foreach (var bolum in Model)
+        {
+            <div class="col-md-4 mb-3">
+                <div class="card" style="background-color: #e6e6e6;">
+                    <div class="card-body">
+                        <h5 class="card-title">@bolum.BolumAdi</h5>
+                        <p class="card-text">Bolum ID: @bolum.BolumId</p>
+                        <form method="post" asp-controller="BolumSec" asp-action="BolumSayfasi" >
+                            <input type="hidden" name="id" value="@bolum.BolumId" />
+                            <button type="submit" class="btn btn-primary" >Bolum Sec</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
