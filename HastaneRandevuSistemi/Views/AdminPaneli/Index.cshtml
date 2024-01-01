@@ -4,6 +4,21 @@
 }
 
 <div class="container mt-5">
-    <h2>Admin Paneli</h2>
-    <a asp-controller="AdminPaneli" asp-action="DoktorEkle" class="btn btn-primary">Doktor Ekle</a>
+    <h2 class="mb-4">Admin Paneli</h2>
+
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <a asp-controller="Doktor" asp-action="Index" class="btn btn-primary btn-block">Doktor</a>
+        </div>
+        <div class="col-md-4 mb-3">
+            <a asp-controller="Hasta" asp-action="Index" class="btn btn-primary btn-block">Hasta</a>
+        </div>
+        <div class="col-md-4 mb-3">
+            <a asp-controller="AdminPaneli" asp-action="Index" class="btn btn-primary btn-block">Randevular</a>
+        </div>
+    </div>
+
+    <div class="mt-3">
+        <a asp-controller="Giris" asp-action="Giris" class="btn btn-danger">Çıkış</a>
+    </div>
 </div>

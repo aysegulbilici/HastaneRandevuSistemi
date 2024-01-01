@@ -25,4 +25,3 @@ app.MapControllerRoute(
     pattern: "{controller=Giris}/{action=Giris}/{id?}");
 
 app.Run();
-

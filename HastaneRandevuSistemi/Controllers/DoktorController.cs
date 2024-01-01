@@ -1,105 +1,148 @@
 ﻿using HastaneRandevuSistemi.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-public class DoktorM
-{
-    public string Ad { get; set; }
-    public string Soyad { get; set; }
-    public string Sifre { get; set; }
-    public string Tc { get; set; }
-    public int RolId { get; set; }               
-    public int BolumId { get; set; }
-}
-
-/* TODO: trying to post data and make crud. migration fault.
- {
-    "ad":"Mustafa",
-    "soyad":"biçer",
-    "sifre":"abckder",
-    "tc":"12345678912",
-    "rolId":1,
-    "bolumId":1
-}*/
+using Microsoft.EntityFrameworkCore;
 
 namespace HastaneRandevuSistemi.Controllers
 {
-
-    [Route("api/[controller]")]
-    [ApiController]
-    public class DoktorController : ControllerBase
+    public class DoktorController : Controller
     {
-        HastaneRandevuSistemiDbContext context = HastaneRandevuSistemiDbContext.getInstance();
-        // GET: api/<DoctorController>
-        [HttpGet]
-        public IEnumerable<Doktor> Get()
+        // GET: DoktorController
+        public ActionResult Index()
         {
-            return context.DoktorT.ToList();
+            HastaneRandevuSistemiDbContext _ctx = HastaneRandevuSistemiDbContext.getInstance();
+            var doktorList = _ctx.DoktorT
+     .Include(d => d.Kullanici)
+     .Include(d => d.Bolum)  // Include Bolum property
+     .ToList();
+
+            return View(doktorList);
         }
 
-        // GET api/<DoctorController>/5
-        [HttpGet("{id}")]
-        public Doktor Get(int id)
+        // GET: DoktorController/Details/5
+        public ActionResult Details(int id)
         {
-            var res = context.DoktorT.FirstOrDefault(x => x.id == id);
-
-
-            return res;
-        }
-
-        // POST api/<DoctorController>
-        [HttpPost]
-        public void Post([FromBody] DoktorM doktorM )
-        {
+            // randevulari goster
+            HastaneRandevuSistemiDbContext _ctx = HastaneRandevuSistemiDbContext.getInstance();
          
-            HastaneRandevuSistemiDbContext context = HastaneRandevuSistemiDbContext.getInstance();
-            Kullanici kullanici = new Kullanici();
-            kullanici.KullaniciAd = doktorM.Ad;
-            kullanici.KullaniciSoyad = doktorM.Soyad;
-            kullanici.Sifre = doktorM.Sifre;
-            kullanici.Tc = doktorM.Tc;
-            kullanici.rolId = doktorM.RolId;
+            var randevuListesi = _ctx.RandevuT
+    .Include(d => d.Kullanici)
+    .Include(d => d.Doktor)  // Include Dkotor property
+    .ToList();
 
-            context.KullaniciT.Add(kullanici);
+            var doktorList = _ctx.DoktorT
+    .Include(d => d.Kullanici)
+    .Include(d => d.Bolum)  // Include Bolum property
+    .ToList();
 
-            Doktor doktor = new Doktor();
-            doktor.id = kullanici.KullaniciId;
-            doktor.bolum_id = doktorM.BolumId;
-            doktor.randevu_id = "";
 
-            context.DoktorT.Add(doktor);
-            
-            context.SaveChanges();
+
+            var randevu = from x in randevuListesi where x.doktorId ==id select x;
+
+            var doktor = from x in doktorList where x.id == id select x;
+            ViewBag.Randevular = randevu.ToList();
+            ViewBag.Doktor = doktor;
+            return View(doktor.FirstOrDefault()!);
         }
 
-        // PUT api/<DoctorController>/5
-        [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] Doktor value)
+        // GET: DoktorController/Create
+        public ActionResult Create()
         {
-            var willPut = HastaneRandevuSistemiDbContext.getInstance().DoktorT.FirstOrDefault(x => x.id == id);
-            if (willPut == null)
-                return NotFound();
-            willPut.bolum_id = value.bolum_id;
-            willPut.Bolum = value.Bolum;
-            willPut.id = value.id;
-            willPut.randevu_id = value.randevu_id;
-            HastaneRandevuSistemiDbContext.getInstance().Update(willPut);
-            HastaneRandevuSistemiDbContext.getInstance().SaveChanges();
-            return Ok();
+            return View();
         }
 
-        // DELETE api/<DoctorController>/5
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
-
+        // POST: DoktorController/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(DoktorDbo dbo)
         {
+            try
+            {
+                HastaneRandevuSistemiDbContext _ctx = HastaneRandevuSistemiDbContext.getInstance();
+                Doktor d = dbo.getDoktor(_ctx);
 
-            var willDelete = HastaneRandevuSistemiDbContext.getInstance().DoktorT.Where(x => x.id == id).First();
-            if (willDelete == null)
-                return NotFound();
-            HastaneRandevuSistemiDbContext.getInstance().DoktorT.Remove(willDelete);
-            HastaneRandevuSistemiDbContext.getInstance().SaveChanges();
-            return Ok();
+                _ctx.DoktorT.Add(d);
+                _ctx.SaveChanges();
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // GET: DoktorController/Edit/5
+        public ActionResult Edit(int id)
+        {
+            HastaneRandevuSistemiDbContext _ctx = HastaneRandevuSistemiDbContext.getInstance();
+            ViewBag.Bolumler = _ctx.BolumT.ToList();
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(DoktorEditViewModel model)
+        {
+            try
+            {
+                HastaneRandevuSistemiDbContext _ctx = HastaneRandevuSistemiDbContext.getInstance();
+                var doktor = _ctx.DoktorT
+                    .Include(d => d.Kullanici)
+                    .Include(d => d.Bolum)
+                    .FirstOrDefault(x => x.id == model.Id);
+
+                if (doktor != null)
+                {
+                    doktor.bolum_id = model.BolumId;
+                    _ctx.SaveChanges();
+                }
+
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+
+        // GET: DoktorController/Delete/5
+        public ActionResult Delete(int id)
+        {
+            HastaneRandevuSistemiDbContext _ctx = HastaneRandevuSistemiDbContext.getInstance();
+            var doktorList = _ctx.DoktorT
+     .Include(d => d.Kullanici)
+     .Include(d => d.Bolum)  // Include Bolum property
+     .ToList();
+            var query = from d in doktorList where d.id.Equals(id) select d;
+            TempData["doktor"] = query.FirstOrDefault()!;
+            return View();
+        }
+
+        // POST: DoktorController/Delete/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(int id, IFormCollection collection)
+        {
+            try
+            {
+                HastaneRandevuSistemiDbContext _ctx = HastaneRandevuSistemiDbContext.getInstance();
+                var doktorList = _ctx.DoktorT
+      .Include(d => d.Kullanici)
+      .Include(d => d.Bolum)  // Include Bolum property
+      .ToList();
+
+                var kullaniciListesi = _ctx.KullaniciT;
+                var query = from d in doktorList where d.id.Equals(id) select d;
+                var queryK = from k in kullaniciListesi where k.KullaniciId == id select k;
+                _ctx.DoktorT.Remove(query.FirstOrDefault()!);
+                _ctx.KullaniciT.Remove(queryK.FirstOrDefault()!);
+                _ctx.SaveChanges();
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
         }
     }
 }

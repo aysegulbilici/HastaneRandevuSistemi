@@ -1,0 +1,31 @@
+﻿@model HastaneRandevuSistemi.Models.HastaGiris
+
+@{
+	ViewBag.Title = "Hasta Girişi";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+	<div class="card">
+		<div class="card-header">
+			<h2 class="text-center">Hasta Giriş</h2>
+		</div>
+		<div class="card-body">
+			<form method="post" asp-controller="Hasta" asp-action="Giris">
+				<div class="form-group">
+					<label asp-for="Tc" class="font-weight-bold">TC Kimlik:</label>
+					<input asp-for="Tc" class="form-control" required>
+					<span asp-validation-for="Tc" class="text-danger"></span>
+				</div>
+
+				<div class="form-group">
+					<label asp-for="Sifre" class="font-weight-bold">Şifre:</label>
+					<input asp-for="Sifre" type="password" class="form-control" required>
+					<span asp-validation-for="Sifre" class="text-danger"></span>
+				</div>
+
+				<button type="submit" class="btn btn-primary btn-block">Giriş Yap</button>
+			</form>
+		</div>
+	</div>
+</div>

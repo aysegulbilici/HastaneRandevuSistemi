@@ -13,6 +13,8 @@ public class Bolum
     [Required]
     public string BolumAdi { get; set; }
 
+    public Bolum() { }
+    public Bolum(int id) { BolumId = id; }
 
     public string toString()
     {

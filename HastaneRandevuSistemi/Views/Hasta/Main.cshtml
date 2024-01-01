@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewData["Tittle"]</title>
+</head>
+<body>
+
+    <div class="container mt-5">
+        <h1>Hasta Ana Sayfası</h1>
+
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Kullanıcı Ayarlarım</h5>
+                        <p class="card-text">Hesap bilgilerinizi güncelleyin.</p>
+                        <a asp-controller="Hasta" asp-action="Ayarlar" class="btn btn-primary">Ayarlarımı Güncelle</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Randevularım</h5>
+                        <p class="card-text">Mevcut ve gelecekteki randevularınızı görüntüleyin.</p>
+                        <a href="#" class="btn btn-primary">Randevularımı Görüntüle</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Randevu Al</h5>
+                        <p class="card-text">Yeni bir randevu alın.</p>
+                        <a asp-controller="Hasta" asp-action="RandevuAl" class="btn btn-primary">Randevu Al</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>

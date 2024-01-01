@@ -15,7 +15,7 @@
     <div class="container mt-5">
         <h2>Doktor Ekle</h2>
 
-        <form method="post" asp-controller="AdminPaneli" asp-action="DoktorEkle">
+        <form method="post" asp-controller="Doktor" asp-action="Create">
             <div class="form-group">
                 <label asp-for="KullaniciAd">Doktor Adı:</label>
                 <input asp-for="KullaniciAd" class="form-control" required>
@@ -33,19 +33,19 @@
             </div>
             <div class="form-group">
                 <label asp-for="Sifre">Şifre:</label>
-                <input asp-for="Sifre" type="password"  class="form-control" required>
+                <input asp-for="Sifre" type="password" class="form-control" required>
                 <span asp-validation-for="Sifre" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label for="bolumId">Bölüm:</label>
-                <select asp-for="bolumId" class="form-control" required>
+                <select asp-for="BolumId" class="form-control" required>
                     <option value="">Seçiniz</option>
                     @foreach (var bolum in bolumler)
                     {
                         <option value="@bolum.BolumId">@bolum.BolumAdi</option>
                     }
                 </select>
-                <span asp-validation-for="bolumId" class="text-danger"></span>
+                <span asp-validation-for="BolumId" class="text-danger"></span>
             </div>
             <button type="submit" class="btn btn-success">Doktor Ekle</button>
         </form>

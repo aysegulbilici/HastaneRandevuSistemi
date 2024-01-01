@@ -25,9 +25,10 @@ namespace HastaneRandevuSistemi.Models
         [Column("Sifre")] // Map to the correct column name if necessary
         public string Sifre { get; set; }
 
+
         [Required(ErrorMessage = "Bölüm ID zorunlu bir alan.")]
-        [Column("bolum_id")] // Map to the correct column name if necessary
-        public int bolumId { get; set; }
+        [Column("BolumId")] // Map to the correct column name if necessary
+        public int BolumId { get; set; }
 
         private int rolId = 3;
 
@@ -43,20 +44,23 @@ namespace HastaneRandevuSistemi.Models
             kullanici.rolId = rolId;
             return kullanici;
         }
-
-        public Doktor getDoktor()
+        public Doktor getDoktor(HastaneRandevuSistemiDbContext context)
         {
             Doktor doktor = new Doktor();
             doktor.Kullanici = getKullanici();
-            doktor.bolum_id = bolumId;
-            
+            doktor.bolum_id = BolumId;
+            doktor.randevu_id = "";
+
+            // Set the Bolum property using the existing instance from the context
+            doktor.Bolum = context.BolumT.Find(BolumId)!;
+
             return doktor;
         }
 
 
         public override string ToString()
         {
-            return $"Doktor: {KullaniciAd} {KullaniciSoyad}, TC: {Tc}, BolumID: {bolumId}";
+            return $"Doktor: {KullaniciAd} {KullaniciSoyad}, TC: {Tc}, BolumID: {BolumId}";
         }
 
     }

@@ -1,0 +1,54 @@
+﻿@model HastaneRandevuSistemi.Models.Hasta
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+@{
+    var randevuList = ViewBag.RandevuList as List<HastaneRandevuSistemi.Models.Randevu>;
+}
+<h1>Details</h1>
+
+<div>
+    <h4>Hasta</h4>
+    <hr />
+    <dl class="row">
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Kullanici)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Kullanici.KullaniciAd)  @Html.DisplayFor(model => model.Kullanici.KullaniciSoyad)
+        </dd>
+       
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Kullanici.Tc)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Kullanici.Tc)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Kullanici.Sifre)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Kullanici.Sifre)
+        </dd>
+    </dl>
+</div>
+
+
+@if (randevuList != null && randevuList.Any())
+{
+    <h4>Randevu List</h4>
+    <ul>
+        @foreach (var randevu in randevuList)
+        {
+            <li>@randevu.tarih.ToString("dd/MM/yyyy")</li>
+        }
+    </ul>
+}
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
